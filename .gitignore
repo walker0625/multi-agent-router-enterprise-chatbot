@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# 로컬 실행 산출물
+.env
+.devkeys/
+.cache/
+.run/
+*.db
+*.db-journal
+
+# eval 실행 결과 중 대용량 trace (리포트 md 는 커밋)
+eval/runs/*/traces.jsonl
+
+# web
+web/node_modules/
+web/dist/
+web/test-results/
+web/playwright-report/

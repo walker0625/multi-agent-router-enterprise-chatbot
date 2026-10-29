@@ -1,0 +1,98 @@
+[
+ {
+  "id": "A-01",
+  "name": "한빛유통",
+  "industry": "유통",
+  "unit": "S1",
+  "kam": "김서진",
+  "kam_id": "u-01",
+  "status": "수주",
+  "main_offer": "누리 WMS",
+  "employees": 5100,
+  "summary": "유통 업종 고객. 주력 제안은 누리 WMS. 현재 영업 단계는 '수주'. 주요 관심사는 문서 결재 지연 해소."
+ },
+ {
+  "id": "A-02",
+  "name": "새솔물류",
+  "industry": "물류",
+  "unit": "S1",
+  "kam": "서지안",
+  "kam_id": "e-08",
+  "status": "수주",
+  "main_offer": "누리 RouteOpt",
+  "employees": 1200,
+  "summary": "물류 업종 고객. 주력 제안은 누리 RouteOpt. 현재 영업 단계는 '수주'. 주요 관심사는 출고 지연 해소."
+ },
+ {
+  "id": "A-03",
+  "name": "다온마트",
+  "industry": "유통",
+  "unit": "S1",
+  "kam": "김서진",
+  "kam_id": "u-01",
+  "status": "수주",
+  "main_offer": "누리 DataHub",
+  "employees": 5100,
+  "summary": "유통 업종 고객. 주력 제안은 누리 DataHub. 현재 영업 단계는 '수주'. 주요 관심사는 데이터 중복 입력 해소."
+ },
+ {
+  "id": "A-04",
+  "name": "푸른항운",
+  "industry": "물류",
+  "unit": "S1",
+  "kam": "서지안",
+  "kam_id": "e-08",
+  "status": "협상",
+  "main_offer": "누리 WMS",
+  "employees": 850,
+  "summary": "물류 업종 고객. 주력 제안은 누리 WMS. 현재 영업 단계는 '협상'. 주요 관심사는 데이터 중복 입력 해소."
+ },
+ {
+  "id": "A-05",
+  "name": "대성정밀",
+  "industry": "제조",
+  "unit": "S2",
+  "kam": "최지훈",
+  "kam_id": "u-04",
+  "status": "수주",
+  "main_offer": "누리 MES",
+  "employees": 850,
+  "summary": "제조 업종 고객. 주력 제안은 누리 MES. 현재 영업 단계는 '수주'. 주요 관심사는 설비 이력 단절 해소."
+ },
+ {
+  "id": "A-06",
+  "name": "미래캐피탈",
+  "industry": "금융",
+  "unit": "S2",
+  "kam": "임도현",
+  "kam_id": "e-09",
+  "status": "수주",
+  "main_offer": "누리 DataHub",
+  "employees": 320,
+  "summary": "금융 업종 고객. 주력 제안은 누리 DataHub. 현재 영업 단계는 '수주'. 주요 관심사는 재고 불일치 해소."
+ },
+ {
+  "id": "A-07",
+  "name": "온누리제약",
+  "industry": "제약",
+  "unit": "S2",
+  "kam": "최지훈",
+  "kam_id": "u-04",
+  "status": "수주",
+  "main_offer": "누리 QMS",
+  "employees": 320,
+  "summary": "제약 업종 고객. 주력 제안은 누리 QMS. 현재 영업 단계는 '수주'. 주요 관심사는 재고 불일치 해소."
+ },
+ {
+  "id": "A-08",
+  "name": "세움모터스",
+  "industry": "제조",
+  "unit": "S2",
+  "kam": "임도현",
+  "kam_id": "e-09",
+  "status": "제안",
+  "main_offer": "누리 MES",
+  "employees": 850,
+  "summary": "제조 업종 고객. 주력 제안은 누리 MES. 현재 영업 단계는 '제안'. 주요 관심사는 문서 결재 지연 해소."
+ }
+]

@@ -1,0 +1,55 @@
+[project]
+name = "multi-agent-router-enterprise-chatbot"
+version = "0.1.0"
+description = "3단 캐스케이드 라우터와 도메인 에이전트 2개로 구성한 기업용 멀티 에이전트 챗봇"
+requires-python = ">=3.13"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*", "services/*"]
+
+[tool.uv.sources]
+chatcore = { workspace = true }
+router-service = { workspace = true }
+delivery-agent = { workspace = true }
+sales-agent = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "chatcore",
+    "router-service",
+    "delivery-agent",
+    "sales-agent",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.25",
+    "ruff>=0.8",
+    "pyright>=1.1.390",
+]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib -q"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]  # 한글 문장 부호 오탐
+
+[tool.ruff.lint.per-file-ignores]
+"data/generate.py" = ["E501"]  # 데이터 문장
+
+[tool.ruff.lint.isort]
+known-first-party = ["chatcore", "router_service", "delivery_agent", "sales_agent", "datagen", "evalkit"]
+
+[tool.pyright]
+pythonVersion = "3.13"
+typeCheckingMode = "standard"
+include = ["packages", "services", "data", "eval", "scripts"]
+exclude = ["**/node_modules", "**/.venv", "web"]

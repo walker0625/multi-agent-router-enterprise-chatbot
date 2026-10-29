@@ -1,0 +1,56 @@
+[
+ {
+  "sub": "u-01",
+  "name": "김서진",
+  "team": "영업1팀",
+  "title": "과장",
+  "description": "유통·물류 고객 담당 영업. 연락처 열람 권한, 수행 프로젝트 1개 열람",
+  "project_ids": [
+   "P-101"
+  ],
+  "sales_units": [
+   "S1"
+  ],
+  "can_read_contacts": true
+ },
+ {
+  "sub": "u-02",
+  "name": "이도윤",
+  "team": "사업수행1팀",
+  "title": "PM",
+  "description": "유통·물류 프로젝트 3개 수행 PM. 영업 비공개 자료·연락처 권한 없음",
+  "project_ids": [
+   "P-101",
+   "P-102",
+   "P-103"
+  ],
+  "sales_units": [],
+  "can_read_contacts": false
+ },
+ {
+  "sub": "u-03",
+  "name": "박서연",
+  "team": "경영지원팀",
+  "title": "사원",
+  "description": "권한이 거의 없는 사용자. 공개 영업 정보와 사용 안내만 볼 수 있음",
+  "project_ids": [],
+  "sales_units": [],
+  "can_read_contacts": false
+ },
+ {
+  "sub": "u-04",
+  "name": "최지훈",
+  "team": "영업2팀",
+  "title": "팀장",
+  "description": "제조·금융 고객 영업 팀장. 연락처 열람, 수행 프로젝트 3개 열람",
+  "project_ids": [
+   "P-104",
+   "P-105",
+   "P-106"
+  ],
+  "sales_units": [
+   "S2"
+  ],
+  "can_read_contacts": true
+ }
+]

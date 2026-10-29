@@ -1,0 +1,118 @@
+[
+ {
+  "term": "WMS",
+  "aliases": [
+   "창고관리시스템"
+  ],
+  "description": "입고·출고·재고를 관리하는 창고 관리 시스템"
+ },
+ {
+  "term": "MES",
+  "aliases": [
+   "제조실행시스템"
+  ],
+  "description": "생산 현장의 작업지시·실적·품질을 관리하는 시스템"
+ },
+ {
+  "term": "QMS",
+  "aliases": [
+   "품질관리시스템"
+  ],
+  "description": "품질 문서·일탈·CAPA 를 관리하는 시스템"
+ },
+ {
+  "term": "CR",
+  "aliases": [
+   "변경요청",
+   "변경 요청서"
+  ],
+  "description": "합의된 범위를 바꾸기 위한 공식 요청"
+ },
+ {
+  "term": "UAT",
+  "aliases": [
+   "사용자 인수 테스트",
+   "인수테스트"
+  ],
+  "description": "고객 현업이 수행하는 최종 테스트"
+ },
+ {
+  "term": "SIT",
+  "aliases": [
+   "통합 테스트",
+   "통합테스트"
+  ],
+  "description": "시스템 간 연계를 검증하는 테스트"
+ },
+ {
+  "term": "기성",
+  "aliases": [
+   "기성고",
+   "기성 청구"
+  ],
+  "description": "공정률에 따라 대금을 나눠 청구하는 것"
+ },
+ {
+  "term": "검수",
+  "aliases": [
+   "인수 검사",
+   "단계 검수"
+  ],
+  "description": "산출물이 기준을 충족하는지 고객이 확인하는 절차"
+ },
+ {
+  "term": "킥오프",
+  "aliases": [
+   "착수 회의",
+   "착수보고"
+  ],
+  "description": "프로젝트 시작 시 범위·일정을 공유하는 회의"
+ },
+ {
+  "term": "컷오버",
+  "aliases": [
+   "운영 전환",
+   "오픈 전환"
+  ],
+  "description": "신규 시스템으로 운영을 넘기는 작업"
+ },
+ {
+  "term": "WBS",
+  "aliases": [
+   "작업분류체계"
+  ],
+  "description": "프로젝트 작업을 계층으로 나눈 일정 계획"
+ },
+ {
+  "term": "MD",
+  "aliases": [
+   "맨데이",
+   "인일"
+  ],
+  "description": "1인이 하루 일하는 작업량 단위"
+ },
+ {
+  "term": "CAPA",
+  "aliases": [
+   "시정예방조치"
+  ],
+  "description": "품질 문제의 시정·예방 조치"
+ },
+ {
+  "term": "PO",
+  "aliases": [
+   "발주서",
+   "구매주문"
+  ],
+  "description": "구매 발주 문서",
+  "ambiguous_with": "프로덕트 오너(Product Owner)"
+ },
+ {
+  "term": "PM",
+  "aliases": [
+   "프로젝트 관리자"
+  ],
+  "description": "프로젝트 수행 책임자",
+  "ambiguous_with": "오후(post meridiem)"
+ }
+]
