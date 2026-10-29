@@ -54,7 +54,7 @@
   - 정확히 1개 도메인이면 `decided`, SINGLE이다.
   - 아니면 `undecided`다. `detail`에 top-3 (domain, score), τ를 남긴다.
 - **τ는 임베더별 값이다.** 현재 임베더 이름이 `thresholds.yaml`의 `embedder`와 다르면 L2를 `skipped`로 두고 경고 로그를 남긴다. 다른 모델의 τ를 그대로 쓰면 조용히 오판한다.
-  - fake 임베더(`hashing-512`)용 초기값은 앵커 변형 문장으로 대략 잡는다. 최종 값은 eval의 `calibrate-l2`가 holdout에서 정한다.
+  - fake 임베더(`hashing-512`)용 초기값은 앵커 변형 문장으로 대략 잡는다. 최종 값은 eval의 `calibrate-l2`가 골드셋 dev 분할에서 정하고 test 분할로 확인한다.
 
 ### L3 — LLM 판정 (`layer3.py`, `routing/judge.yaml`)
 - **judge.yaml:** `version`, 도메인 정의(각 도메인이 다루는 것과 다루지 않는 것), few-shot 6~9개, 지시문
@@ -84,7 +84,7 @@
 
 - **`TurnRunner.run(plan_source, ...) -> AsyncIterator[Event]`**
   - 단계: `route`(plan 만들기) → `execute`(결과별 strategy) → `finalize` → `persist`
-- **plan 출처**는 넷이고, runner는 하나다.
+- **plan 출처**는 셋이고, runner는 하나다.
   - `CascadeSource`: 일반 질문
   - `ForcedSource`: 웹이 `domain`을 지정했거나 HITL 도메인 버튼을 눌렀을 때
   - `ReplaySource`: 다시 생성. 저장된 plan을 재사용하고 다시 라우팅하지 않는다.
