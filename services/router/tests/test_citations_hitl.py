@@ -34,8 +34,8 @@ def test_renumber_in_display_order_across_channels() -> None:
     delivery, sales = renumber(answers)
     assert delivery.text == "지연 14일 [1](cite:ML-2). 원인은 사양 변경 [2](cite:ML-1). 다시 [1](cite:ML-2)."
     assert [r.id for r in delivery.references] == ["ML-2", "ML-1", "ML-9"]  # 인용 순, 미인용은 뒤
-    assert sales.text == "10% 인하 요청 [3](cite:meeting:M-8). 없는 근거 ."  # 카드에 없는 ID 는 지운다
-    assert strip_markers(sales.text) == "10% 인하 요청 . 없는 근거 ."
+    assert sales.text == "10% 인하 요청 [3](cite:meeting:M-8). 없는 근거."  # 카드에 없는 ID 는 지운다
+    assert strip_markers(sales.text) == "10% 인하 요청. 없는 근거."
 
 
 PROJECTS = {

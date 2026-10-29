@@ -16,8 +16,12 @@ from chatcore.events import Answer
 MARKER = re.compile(r"\[(\d+)\]\(cite:([^)\s]+)\)")
 
 
+# 마커를 지울 때 앞 공백도 함께 지운다("요청 [1](cite:x)." → "요청.").
+_MARKER_WITH_SPACE = re.compile(r"[ \t]*" + MARKER.pattern)
+
+
 def strip_markers(text: str) -> str:
-    return MARKER.sub("", text)
+    return _MARKER_WITH_SPACE.sub("", text)
 
 
 def renumber(answers: Sequence[Answer]) -> list[Answer]:
@@ -30,12 +34,13 @@ def renumber(answers: Sequence[Answer]) -> list[Answer]:
         def replace(match: re.Match[str], known: set[str] = known, cited_here: set[str] = cited_here) -> str:
             ref_id = match.group(2)
             if ref_id not in known:
-                return ""
+                return ""  # 없는 근거를 가리키는 마커는 앞 공백과 함께 지운다
             cited_here.add(ref_id)
             n = numbers.setdefault(ref_id, len(numbers) + 1)
-            return f"[{n}](cite:{ref_id})"
+            lead = match.group(0)[: match.group(0).index("[")]
+            return f"{lead}[{n}](cite:{ref_id})"
 
-        text = MARKER.sub(replace, answer.text)
+        text = _MARKER_WITH_SPACE.sub(replace, answer.text)
         cited = sorted((r for r in answer.references if r.id in cited_here), key=lambda r: numbers[r.id])
         uncited = [r for r in answer.references if r.id not in cited_here]
         out.append(answer.model_copy(update={"text": text, "references": cited + uncited}))
