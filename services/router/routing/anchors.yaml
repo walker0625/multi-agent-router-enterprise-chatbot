@@ -1,0 +1,110 @@
+# L2 앵커 — 도메인별 대표 질문(손으로 쓴 합성 문장).
+# 평가 골드셋(eval/)과 겹치면 안 된다. 골드셋은 따로 만든다.
+version: 1
+
+anchors:
+  # ---- delivery: 계약 이후 프로젝트 수행 ----
+  - {domain: delivery, text: "한빛유통 WMS 고도화 프로젝트 일정이 얼마나 밀렸어?"}
+  - {domain: delivery, text: "배차 최적화 시스템 구축 진척률이 어떻게 돼?"}
+  - {domain: delivery, text: "이번 주 주간보고 기준 공정률이 몇 퍼센트야?"}
+  - {domain: delivery, text: "최근 운영 장애 경위 보고 내용 정리해줘"}
+  - {domain: delivery, text: "출고 화면 전자 결재 연동 변경 요청은 승인됐어?"}
+  - {domain: delivery, text: "사용자 인수 테스트 통과율이 얼마야?"}
+  - {domain: delivery, text: "통합 테스트에서 남은 결함이 몇 건이야?"}
+  - {domain: delivery, text: "5월 기성 청구 금액이 얼마였지?"}
+  - {domain: delivery, text: "피킹 최적화 일정 만회하려고 개발자를 더 투입했어?"}
+  - {domain: delivery, text: "단계 검수는 언제로 잡혔어?"}
+  - {domain: delivery, text: "MES 구축 작업지시 모듈 개발 현황 알려줘"}
+  - {domain: delivery, text: "여신 심사 자동화 서류 OCR 쪽 이슈 정리해줘"}
+  - {domain: delivery, text: "품질문서 관리시스템 전환 프로젝트 일탈·CAPA 모듈 진행 상황은?"}
+  - {domain: delivery, text: "다온마트 판매 데이터 플랫폼 매출 대시보드는 어디까지 개발됐어?"}
+  - {domain: delivery, text: "재고 실사 개발이 늦어진 원인이 뭐야?"}
+  - {domain: delivery, text: "차량 관제 요구사항 변경 영향도 분석 결과 알려줘"}
+  - {domain: delivery, text: "운임 정산 장애 재발 방지 대책이 뭐야?"}
+  - {domain: delivery, text: "설비 모니터링 단위 테스트 결과 보고 보여줘"}
+  - {domain: delivery, text: "이슈 메모에 올라온 고객 측 의사결정 지연 건 조치 담당이 누구야?"}
+  - {domain: delivery, text: "운영 전환 전에 남은 결함 조치 계획 알려줘"}
+  - {domain: delivery, text: "프로젝트 투입 인력 계획이 어떻게 바뀌었어?"}
+  - {domain: delivery, text: "테스트 결과서 첨부 파일 내용 요약해줘"}
+  - {domain: delivery, text: "기성 정산 자료 보낸 메일 찾아줘"}
+  - {domain: delivery, text: "외부 인터페이스 사양 변경 때문에 개발 일정이 얼마나 늦어졌어?"}
+  - {domain: delivery, text: "요구사항 회의에서 이번 범위에 넣기로 한 기능이 뭐야?"}
+  - {domain: delivery, text: "PM 이 공유한 개발 지연 메일 요약해줘"}
+  - {domain: delivery, text: "고객 검수 확인을 언제 받기로 했어?"}
+  - {domain: delivery, text: "이번 달 공정률이 계획보다 앞서 있어?"}
+  - {domain: delivery, text: "데이터 레이크 적재 오류 원인 분석 결과는?"}
+  - {domain: delivery, text: "교육 이력 모듈 통합 테스트 준비 상태 알려줘"}
+  - {domain: delivery, text: "미래캐피탈 심사 규칙 엔진 개발 진행 현황"}
+  - {domain: delivery, text: "대성정밀 MES 프로젝트 이번 주에 완료한 작업이 뭐야?"}
+  - {domain: delivery, text: "배차 엔진 개발 지연 만회 계획이 있어?"}
+  - {domain: delivery, text: "변경 요청서의 개발 공수와 일정 영향 정리해줘"}
+
+  # ---- sales: 계약 이전 영업 ----
+  - {domain: sales, text: "한빛유통 영업 단계가 지금 어디까지 왔어?"}
+  - {domain: sales, text: "새솔물류 담당 KAM 이 누구야?"}
+  - {domain: sales, text: "푸른항운과의 협상은 어떻게 진행되고 있어?"}
+  - {domain: sales, text: "세움모터스에 낸 제안 내용 요약해줘"}
+  - {domain: sales, text: "다온마트 가격 협상에서 고객이 요청한 할인 폭은?"}
+  - {domain: sales, text: "한빛유통 수정 견적 총액이 얼마야?"}
+  - {domain: sales, text: "블루웨이브시스템이 경쟁 제안을 낸 고객사가 어디야?"}
+  - {domain: sales, text: "새솔물류 제안 설명회 반응이 어땠어?"}
+  - {domain: sales, text: "이 고객사의 의사결정권자가 누구야?"}
+  - {domain: sales, text: "미래캐피탈 IT전략팀 담당자 연락처 알려줘"}
+  - {domain: sales, text: "온누리제약 계약 조건 협의에서 쟁점이 뭐였어?"}
+  - {domain: sales, text: "지체상금 조항 완화 요청은 어떻게 정리됐어?"}
+  - {domain: sales, text: "대성정밀 니즈 파악 미팅에서 나온 요구가 뭐야?"}
+  - {domain: sales, text: "누리 RouteOpt 제안의 구축 범위가 어떻게 돼?"}
+  - {domain: sales, text: "기술 검토 후속으로 낼 답변서는 언제까지야?"}
+  - {domain: sales, text: "수주 가능성이 높은 고객사를 정리해줘"}
+  - {domain: sales, text: "영업1팀이 맡고 있는 고객사 목록 보여줘"}
+  - {domain: sales, text: "하자보수 기간을 몇 개월로 제안했어?"}
+  - {domain: sales, text: "제안 금액에서 라이선스와 유지보수 비중은 어떻게 돼?"}
+  - {domain: sales, text: "고객사 예산 편성 시기가 언제라고 했어?"}
+  - {domain: sales, text: "최근 영업 회의록에서 경영회의 결재 일정 언급이 있었어?"}
+  - {domain: sales, text: "세움모터스 제안 단계에서 다음 액션이 뭐야?"}
+  - {domain: sales, text: "1차 견적 대비 몇 퍼센트 인하를 요청받았어?"}
+  - {domain: sales, text: "에이펙스소프트와 경쟁하고 있는 영업 건 있어?"}
+  - {domain: sales, text: "고객 구매팀 담당자가 누구고 예산 승인권이 있어?"}
+  - {domain: sales, text: "제안 요약 첨부 자료 내용 알려줘"}
+  - {domain: sales, text: "푸른항운 영업 기회 현황 정리해줘"}
+  - {domain: sales, text: "한빛유통과 계약 형태는 어떤 방향으로 합의했어?"}
+  - {domain: sales, text: "고객사가 제일 관심 있는 문제가 뭐라고 했지?"}
+  - {domain: sales, text: "착수 목표일이랑 PM 배정 협의는 어떻게 됐어?"}
+  - {domain: sales, text: "데모에서 고객 반응이 좋았던 기능이 뭐야?"}
+  - {domain: sales, text: "다온마트 제안 차별점으로 뭘 강조하기로 했어?"}
+  - {domain: sales, text: "영업 단계가 협상인 고객사가 어디야?"}
+  - {domain: sales, text: "고객 경영기획실 상무와 미팅한 내용 알려줘"}
+
+  # ---- general: 사용법·사내 규정·그 밖의 일반 질문 ----
+  - {domain: general, text: "지난 대화 기록은 어디서 볼 수 있어?"}
+  - {domain: general, text: "답변에 붙은 번호를 누르면 뭐가 보여?"}
+  - {domain: general, text: "같은 질문으로 답변을 다시 받고 싶어"}
+  - {domain: general, text: "답변이 나오는 중에 멈추려면 어떻게 해?"}
+  - {domain: general, text: "왜 자꾸 질문을 다시 물어봐?"}
+  - {domain: general, text: "내가 볼 수 있는 자료 범위는 어떻게 정해져?"}
+  - {domain: general, text: "고객 연락처가 가려져서 보여요"}
+  - {domain: general, text: "답변 말투를 바꾸고 싶어"}
+  - {domain: general, text: "영업 자료랑 수행 자료를 한 번에 물어봐도 돼?"}
+  - {domain: general, text: "특정 프로젝트만 골라서 물어보는 방법이 있어?"}
+  - {domain: general, text: "출장비 정산은 언제까지 신청해야 해?"}
+  - {domain: general, text: "경비 영수증은 어디에 첨부해?"}
+  - {domain: general, text: "올해 보안 교육은 언제까지 들어야 해?"}
+  - {domain: general, text: "고객 자료를 외부 메일로 보내도 돼?"}
+  - {domain: general, text: "노트북을 잃어버리면 어디에 신고해?"}
+  - {domain: general, text: "이 챗봇 사용법 알려줘"}
+  - {domain: general, text: "챗봇이 어떤 질문에 답할 수 있어?"}
+  - {domain: general, text: "대화 이름은 어떻게 바꿔?"}
+  - {domain: general, text: "삭제한 대화는 복구할 수 있어?"}
+  - {domain: general, text: "자료 반출 신청은 어디에 해?"}
+  - {domain: general, text: "IT 헬프데스크에 연락하는 방법"}
+  - {domain: general, text: "계정 비밀번호를 바꾸고 싶어"}
+  - {domain: general, text: "설정의 답변 지침에는 뭘 적으면 돼?"}
+  - {domain: general, text: "새 대화는 어떻게 시작해?"}
+  - {domain: general, text: "오늘 서울 날씨 어때?"}
+  - {domain: general, text: "점심 메뉴 추천해줘"}
+  - {domain: general, text: "엑셀에서 중복 값 지우는 방법 알려줘"}
+  - {domain: general, text: "연차 휴가 규정이 어떻게 돼?"}
+  - {domain: general, text: "업무 메일을 정중하게 쓰는 요령 알려줘"}
+  - {domain: general, text: "이 문장 영어로 번역해줘"}
+  - {domain: general, text: "사내 규정은 어디서 확인해?"}
+  - {domain: general, text: "회의실 예약은 어떻게 해?"}

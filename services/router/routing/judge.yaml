@@ -1,0 +1,77 @@
+# L3 LLM 판정 재료. 출력은 도메인별 YES/NO 와 근거 한 줄뿐이다(확신도 점수는 받지 않는다).
+# YAML 에서 YES/NO 는 불리언으로 읽히므로 반드시 따옴표로 감싼다.
+version: 1
+
+instruction: |
+  너는 누리솔루션 사내 업무 챗봇의 질문 분류기다. 질문 하나를 읽고, 아래 세 영역 각각에 대해
+  "이 영역의 자료로 답해야 하는가"를 YES 또는 NO 로 판정한다.
+  - 영역마다 판정을 정확히 하나씩 낸다(delivery, sales, general).
+  - reason 에는 그렇게 판단한 근거를 질문 속 표현을 들어 한 문장으로 쓴다. YES 인데 근거를 못 대면 NO 로 한다.
+  - 질문이 두 영역의 자료를 모두 필요로 하면 두 영역 모두 YES 다.
+  - 질문만으로 무엇을 묻는지 알 수 없으면(지시어만 있거나 대상이 없음) 모든 영역을 NO 로 한다.
+  - 확신도나 점수는 쓰지 않는다. JSON 으로만 답한다.
+
+domains:
+  delivery:
+    label: 프로젝트 수행(계약 이후)
+    covers: >-
+      이미 계약해 진행 중인 프로젝트의 일정·지연, 공정률, 이슈·장애, 테스트(단위·통합·UAT)와 결함,
+      변경 요청(CR)과 영향도, 기성 정산·청구, 인력 투입, 검수, 주간보고, 프로젝트 메일·회의 메모·첨부 산출물.
+    excludes: >-
+      계약 전 영업 활동(제안·견적·가격 협상·경쟁사·영업 단계), 고객 담당자 연락처, 챗봇 사용법과 사내 규정.
+  sales:
+    label: 영업(계약 이전)
+    covers: >-
+      고객사 현황과 영업 단계, 담당 KAM, 고객 담당자와 의사결정권자, 영업 회의록(니즈 파악·제안 설명회·
+      가격 협상·기술 검토·계약 조건 협의), 제안·견적·경쟁사·수주 가능성, 회의 첨부 자료.
+    excludes: >-
+      계약 이후 프로젝트 수행 내용(일정 지연·장애·테스트·CR·기성·검수), 챗봇 사용법과 사내 규정.
+  general:
+    label: 사용 안내·사내 일반
+    covers: >-
+      이 챗봇의 사용법(대화 기록, 다시 생성, 중지, 근거 보기, 답변 지침, 되묻기 이유, 자료 범위),
+      출장비·경비·보안 교육·자료 반출·장비 분실 같은 사내 일반 규정, 업무 자료가 필요 없는 일반 질문.
+    excludes: >-
+      특정 고객사·프로젝트의 업무 자료가 있어야 답할 수 있는 질문.
+
+few_shots:
+  - query: "미래캐피탈 여신 심사 자동화 프로젝트에서 서류 OCR 결함이 몇 건 남았어?"
+    verdicts:
+      - {domain: delivery, answer: "YES", reason: "진행 중인 프로젝트의 테스트 결함 현황을 묻는다."}
+      - {domain: sales, answer: "NO", reason: "영업 단계나 제안에 대한 질문이 아니다."}
+      - {domain: general, answer: "NO", reason: "프로젝트 자료가 있어야 답할 수 있다."}
+  - query: "푸른항운에 제안한 금액이랑 경쟁사 동향 정리해줘"
+    verdicts:
+      - {domain: delivery, answer: "NO", reason: "수행 중인 프로젝트 내용을 묻지 않는다."}
+      - {domain: sales, answer: "YES", reason: "제안 금액과 경쟁사는 계약 전 영업 정보다."}
+      - {domain: general, answer: "NO", reason: "고객사 영업 자료가 필요한 질문이다."}
+  - query: "답변 근거로 나온 문서는 어디서 확인해?"
+    verdicts:
+      - {domain: delivery, answer: "NO", reason: "프로젝트 자료를 묻는 질문이 아니다."}
+      - {domain: sales, answer: "NO", reason: "영업 자료를 묻는 질문이 아니다."}
+      - {domain: general, answer: "YES", reason: "챗봇에서 근거를 보는 방법을 묻는 사용법 질문이다."}
+  - query: "대성정밀 MES 계약 때 합의한 하자보수 조건과 지금 프로젝트 검수 일정을 같이 알려줘"
+    verdicts:
+      - {domain: delivery, answer: "YES", reason: "진행 중인 프로젝트의 검수 일정을 묻는다."}
+      - {domain: sales, answer: "YES", reason: "계약 조건 협의에서 정한 하자보수 조건은 영업 회의록에 있다."}
+      - {domain: general, answer: "NO", reason: "업무 자료가 필요한 질문이다."}
+  - query: "그건 결국 어떻게 됐어?"
+    verdicts:
+      - {domain: delivery, answer: "NO", reason: ""}
+      - {domain: sales, answer: "NO", reason: ""}
+      - {domain: general, answer: "NO", reason: "무엇을 묻는지 대상이 없다."}
+  - query: "출장비 영수증을 잃어버렸는데 정산할 수 있어?"
+    verdicts:
+      - {domain: delivery, answer: "NO", reason: "프로젝트 기성 정산이 아니라 개인 출장비 정산이다."}
+      - {domain: sales, answer: "NO", reason: "영업 자료와 관계없다."}
+      - {domain: general, answer: "YES", reason: "출장비 정산은 사내 경비 규정 질문이다."}
+  - query: "다온마트 데이터 플랫폼 프로젝트 PM 이 누구고 이번 주 공정률은?"
+    verdicts:
+      - {domain: delivery, answer: "YES", reason: "프로젝트 PM 과 주간 공정률은 수행 자료다."}
+      - {domain: sales, answer: "NO", reason: "계약 전 영업 정보를 묻지 않는다."}
+      - {domain: general, answer: "NO", reason: "프로젝트 자료가 필요하다."}
+  - query: "세움모터스 담당 KAM 이 누구야? 챗봇에서 연락처가 가려지던데"
+    verdicts:
+      - {domain: delivery, answer: "NO", reason: "수행 프로젝트와 관계없다."}
+      - {domain: sales, answer: "YES", reason: "고객사 담당 KAM 은 영업 정보다."}
+      - {domain: general, answer: "YES", reason: "연락처가 가려지는 이유는 챗봇 사용 안내다."}
