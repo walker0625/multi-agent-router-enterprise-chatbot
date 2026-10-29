@@ -3,7 +3,9 @@
 `FakeChatModel` 에 task 별 핸들러로 등록한다. 핸들러는 실제 프롬프트(prompts.yaml·judge.yaml)가
 만든 메시지를 읽어 응답을 만든다 — 프롬프트 형식이 바뀌면 여기도 같이 바뀌어야 한다.
 - route.judge: 도메인별 힌트 어휘로 YES/NO 와 근거를 만든다. 힌트는 judge.yaml 의 도메인
-  정의(다루는 것)에 맞춘다. 두 업무 도메인 힌트가 모두 강하면(2개 이상) 둘 다 YES 다.
+  정의(다루는 것)에 맞추고, 골드셋 dev 분할 오답만 보고 보강했다(test 는 보지 않는다).
+  흔한 단어(일정·이슈·미팅…) 하나만 걸리면 대상이 없는 질문으로 보고 모두 NO(→ HITL)다.
+  두 업무 도메인이 모두 걸리고 복합 단서가 있거나, 둘 다 2개 이상 걸리면 둘 다 YES 다.
 - route.contextualize: 지시어가 있거나 질문이 아주 짧으면 직전 질문의 핵심 구절을 붙인다.
 - hitl.suggest: 사용자 프로젝트 자리표시자(`{unit:P-101}`)를 쓴 제안 2~3개.
 - summary: 채널별 첫 문장을 묶은 요약.
@@ -25,16 +27,23 @@ _JUDGE_HINTS: dict[Domain, tuple[str, ...]] = {
     Domain.DELIVERY: (
         "프로젝트", "진행 상황", "진척", "일정", "지연", "공정률", "장애", "이슈", "테스트", "결함",
         "CR", "변경 요청", "기성", "인력", "투입", "검수", "주간보고", "PM", "개발", "산출물",
+        "모듈", "인터페이스", "사양", "인덱스", "조치", "공수",
     ),
     Domain.SALES: (
-        "영업", "고객사", "KAM", "담당자", "견적", "협상", "제안", "경쟁사", "계약 조건", "수주",
-        "니즈", "가격", "연락처", "의사결정", "회의록", "미팅",
+        "영업", "고객사", "KAM", "담당자", "견적", "협상", "제안", "경쟁", "계약", "수주",
+        "니즈", "가격", "연락처", "의사결정", "회의록", "미팅", "예산", "할인", "답변서",
+        "경영회의", "관심", "구매팀", "대리",
     ),
     Domain.GENERAL: (
-        "사용법", "챗봇", "대화", "버튼", "다시 생성", "중지", "답변 지침", "말투", "출장", "경비",
-        "보안", "노트북", "반출", "규정", "휴가", "날씨", "메뉴", "번역",
+        "사용법", "챗봇", "대화", "버튼", "다시 생성", "새로 받", "중지", "답변 지침", "말투", "출장",
+        "경비", "영수증", "보안", "노트북", "반출", "USB", "가져가", "규정", "휴가", "날씨", "비 와",
+        "메뉴", "번역", "와이파이", "비밀번호", "다듬", "며칠", "팁",
     ),
 }  # fmt: skip
+
+# 이 단어 하나만으로는 어느 영역의 무엇을 묻는지 알 수 없다(대상이 없는 질문).
+_VAGUE = frozenset({"일정", "이슈", "진행 상황", "미팅", "연락처"})
+_MULTI_PART = ("같이", "함께", "둘 다", "각각", "동시에", "대비", "그리고")
 
 
 def _mentions(query: str, hint: str) -> bool:
@@ -47,11 +56,14 @@ def _judge(req: FakeRequest) -> str:
     query = req.last_user.casefold()
     hits = {d: [h for h in hints if _mentions(query, h)] for d, hints in _JUDGE_HINTS.items()}
     delivery, sales = len(hits[Domain.DELIVERY]), len(hits[Domain.SALES])
+    multi_part = any(cue in query for cue in _MULTI_PART)
     yes: set[Domain] = set()
-    if delivery >= 2 and sales >= 2:
+    if (delivery >= 2 and sales >= 2) or (multi_part and delivery and sales):
         yes |= {Domain.DELIVERY, Domain.SALES}
     elif delivery != sales:  # 한쪽이 더 많이 걸리면 그쪽만. 같으면 모호하다고 본다
-        yes.add(Domain.DELIVERY if delivery > sales else Domain.SALES)
+        domain = Domain.DELIVERY if delivery > sales else Domain.SALES
+        if not (len(hits[domain]) == 1 and hits[domain][0] in _VAGUE):
+            yes.add(domain)
     if hits[Domain.GENERAL]:
         yes.add(Domain.GENERAL)
     verdicts = []

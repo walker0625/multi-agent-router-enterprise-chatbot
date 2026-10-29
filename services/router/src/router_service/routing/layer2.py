@@ -24,6 +24,11 @@ log = logging.getLogger(__name__)
 TOP_K = 3
 
 
+def gate(top: list[tuple[Domain, float]], tau: float) -> list[Domain]:
+    """τ 이상인 도메인 목록. 정확히 하나일 때만 결정한다(호출부 규칙). 보정 스크립트도 같은 함수를 쓴다."""
+    return sorted({d for d, score in top if score >= tau})
+
+
 class VectorGateLayer:
     def __init__(
         self,
@@ -84,7 +89,7 @@ class VectorGateLayer:
             return LayerResult(layer=self.name, status="undecided", reason="embed_failed")
         hits = await self._index.search(vector=vector, top_k=TOP_K)
         top = [(Domain(h.doc.fields["domain"]), h.score) for h in hits]
-        passed = sorted({d for d, score in top if score >= self._tau})
+        passed = gate(top, self._tau)
         detail = {
             "top3": [{"domain": d.value, "score": round(s, 4)} for d, s in top],
             "tau": self._tau,

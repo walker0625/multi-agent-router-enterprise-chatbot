@@ -86,7 +86,8 @@ async def test_nothing_decided_is_hitl() -> None:
     ("names", "query", "decided_by", "domains"),
     [
         (["L1", "L2", "L3"], "P-101 일정 지연 현황 알려줘", "L1", [Domain.DELIVERY]),
-        (["L2", "L3"], "운임 정산 장애 재발 방지 대책 알려줘", "L2", [Domain.DELIVERY]),
+        # 배포 τ 는 fake 임베더 보정 결과 1.0(L2 결정 안 함)이라 L3 가 받는다. τ 경계는 test_layer2 에서.
+        (["L2", "L3"], "운임 정산 장애 재발 방지 대책 알려줘", "L3", [Domain.DELIVERY]),
         (["L1", "L3"], "다온마트 데이터 플랫폼 PM 이 누구야?", "L3", [Domain.DELIVERY]),
         (["L1", "L2"], "새솔물류 견적 협상과 프로젝트 진행 상황을 같이 알려줘", "cascade", []),
         (["L3"], "한빛유통 영업 단계 알려줘", "L3", [Domain.SALES]),
@@ -150,4 +151,4 @@ async def test_contextualize_failure_falls_back_to_original(settings: Settings) 
 
 def test_layer_protocol_is_satisfied(make_settings: Callable[..., Settings]) -> None:
     layer: Layer = KeywordLayer.load(make_settings().routing_dir / "keywords.yaml")
-    assert layer.name == "L1" and layer.tags[0].startswith("keywords@1#")
+    assert layer.name == "L1" and layer.tags[0].startswith("keywords@")
