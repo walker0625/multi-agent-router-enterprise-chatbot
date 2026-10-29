@@ -330,7 +330,7 @@ MAIL_TOPICS = {
     ),
     "장애 보고": (
         "[{pname}] 운영 장애 경위 보고 — {module}",
-        "{d1} 오전 {module}에서 응답 지연 장애가 약 {mins}분간 발생했습니다. 원인은 {cause}이며 "
+        "{d0} 오전 {module}에서 응답 지연 장애가 약 {mins}분간 발생했습니다. 원인은 {cause}이며 "
         "임시 조치 후 정상화되었습니다. 재발 방지를 위해 모니터링 임계값을 조정하고 근본 원인 분석을 진행합니다.",
     ),
     "인력 투입": (
@@ -397,6 +397,8 @@ def build_delivery() -> tuple[list[dict[str, Any]], ...]:
                 "module": pick(modules),
                 "days": pick([3, 5, 7, 10, 14]),
                 "cause": pick(CAUSES),
+                # 보고 대상(장애 등)은 발송일 이전, 예정 일정은 이후. d0 는 난수를 쓰지 않아 다른 값이 그대로다.
+                "d0": (sent - timedelta(days=2)).isoformat(),
                 "d1": (sent + timedelta(days=pick([3, 7, 10]))).isoformat(),
                 "feature": pick(FEATURES),
                 "cr": rng.randrange(10, 99),
