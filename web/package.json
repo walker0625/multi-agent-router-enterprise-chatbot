@@ -1,0 +1,28 @@
+{
+  "name": "nuri-chat-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b",
+    "gen:types": "json2ts -i src/api/contract.schema.json -o src/api/contract.ts --unreachableDefinitions --bannerComment \"/* scripts/export_contract.py 의 스키마에서 생성됨 — 직접 고치지 않는다 */\"",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-markdown": "^10.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "json-schema-to-typescript": "^16.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.5"
+  }
+}

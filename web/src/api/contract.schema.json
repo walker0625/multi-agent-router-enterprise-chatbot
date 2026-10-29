@@ -1,0 +1,580 @@
+{
+  "$defs": {
+    "Answer": {
+      "properties": {
+        "channel": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ChannelStatus"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/Reference"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "channel",
+        "text",
+        "status",
+        "references"
+      ],
+      "title": "Answer",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ChannelDoneEvent": {
+      "properties": {
+        "type": {
+          "const": "channel_done",
+          "default": "channel_done",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "$ref": "#/$defs/ChannelStatus"
+        },
+        "usage": {
+          "$ref": "#/$defs/Usage"
+        }
+      },
+      "required": [
+        "type",
+        "channel",
+        "status",
+        "usage"
+      ],
+      "title": "ChannelDoneEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ChannelStatus": {
+      "enum": [
+        "ok",
+        "truncated",
+        "error",
+        "stopped"
+      ],
+      "title": "ChannelStatus",
+      "type": "string"
+    },
+    "DeltaEvent": {
+      "properties": {
+        "type": {
+          "const": "delta",
+          "default": "delta",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "channel",
+        "text"
+      ],
+      "title": "DeltaEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "DomainChoice": {
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain",
+        "label",
+        "description"
+      ],
+      "title": "DomainChoice",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "DoneEvent": {
+      "properties": {
+        "type": {
+          "const": "done",
+          "default": "done",
+          "type": "string"
+        },
+        "turn_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/TurnStatus"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Outcome"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "answers": {
+          "items": {
+            "$ref": "#/$defs/Answer"
+          },
+          "type": "array"
+        },
+        "hitl": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HitlEvent"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "recommendations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "usage": {
+          "$ref": "#/$defs/Usage"
+        },
+        "latency_ms": {
+          "default": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "turn_id",
+        "status",
+        "outcome",
+        "answers",
+        "hitl",
+        "recommendations",
+        "usage",
+        "latency_ms"
+      ],
+      "title": "DoneEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ErrorCode": {
+      "enum": [
+        "INVALID_REQUEST",
+        "UNAUTHORIZED",
+        "FORBIDDEN",
+        "NOT_FOUND",
+        "CONFLICT",
+        "PAYLOAD_TOO_LARGE",
+        "TIMEOUT",
+        "CONTENT_FILTERED",
+        "OUTPUT_BLOCKED",
+        "UPSTREAM_ERROR",
+        "AGENT_UNAVAILABLE",
+        "SEARCH_FAILED",
+        "BUDGET_EXCEEDED",
+        "INTERNAL"
+      ],
+      "title": "ErrorCode",
+      "type": "string"
+    },
+    "ErrorEvent": {
+      "properties": {
+        "type": {
+          "const": "error",
+          "default": "error",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "channel",
+        "code",
+        "message"
+      ],
+      "title": "ErrorEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "HitlEvent": {
+      "description": "되묻기. `suggestions` 는 바로 보낼 수 있는 재질문, `choices` 는 도메인 버튼.",
+      "properties": {
+        "type": {
+          "const": "hitl",
+          "default": "hitl",
+          "type": "string"
+        },
+        "stage": {
+          "enum": [
+            "rewrite",
+            "domain"
+          ],
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "suggestions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "choices": {
+          "items": {
+            "$ref": "#/$defs/DomainChoice"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "stage",
+        "message",
+        "suggestions",
+        "choices"
+      ],
+      "title": "HitlEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "Outcome": {
+      "enum": [
+        "SINGLE",
+        "PARALLEL",
+        "HITL",
+        "BLOCKED"
+      ],
+      "title": "Outcome",
+      "type": "string"
+    },
+    "ProgressEvent": {
+      "properties": {
+        "type": {
+          "const": "progress",
+          "default": "progress",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "message": {
+          "type": "string"
+        },
+        "percent": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "channel",
+        "message",
+        "percent"
+      ],
+      "title": "ProgressEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "Reference": {
+      "description": "답변 근거 카드. 본문의 `[N](cite:<id>)` 마커가 `id` 를 가리킨다.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "snippet": {
+          "default": "",
+          "type": "string"
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "meta": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "title",
+        "snippet",
+        "date",
+        "url",
+        "score",
+        "meta"
+      ],
+      "title": "Reference",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ReferencesEvent": {
+      "properties": {
+        "type": {
+          "const": "references",
+          "default": "references",
+          "type": "string"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/Reference"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "channel",
+        "items"
+      ],
+      "title": "ReferencesEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RouteEvent": {
+      "properties": {
+        "type": {
+          "const": "route",
+          "default": "route",
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/Outcome"
+        },
+        "agents": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "decided_by": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "outcome",
+        "agents",
+        "decided_by"
+      ],
+      "title": "RouteEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "TurnEvent": {
+      "properties": {
+        "type": {
+          "const": "turn",
+          "default": "turn",
+          "type": "string"
+        },
+        "chat_id": {
+          "type": "string"
+        },
+        "turn_id": {
+          "type": "string"
+        },
+        "turn_no": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "chat_id",
+        "turn_id",
+        "turn_no"
+      ],
+      "title": "TurnEvent",
+      "type": "object",
+      "additionalProperties": false
+    },
+    "TurnStatus": {
+      "enum": [
+        "pending",
+        "done",
+        "hitl",
+        "blocked",
+        "error",
+        "stopped",
+        "disconnected"
+      ],
+      "title": "TurnStatus",
+      "type": "string"
+    },
+    "Usage": {
+      "properties": {
+        "input_tokens": {
+          "default": 0,
+          "type": "integer"
+        },
+        "output_tokens": {
+          "default": 0,
+          "type": "integer"
+        }
+      },
+      "title": "Usage",
+      "type": "object",
+      "required": [
+        "input_tokens",
+        "output_tokens"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "channel_done": "#/$defs/ChannelDoneEvent",
+      "delta": "#/$defs/DeltaEvent",
+      "done": "#/$defs/DoneEvent",
+      "error": "#/$defs/ErrorEvent",
+      "hitl": "#/$defs/HitlEvent",
+      "progress": "#/$defs/ProgressEvent",
+      "references": "#/$defs/ReferencesEvent",
+      "route": "#/$defs/RouteEvent",
+      "turn": "#/$defs/TurnEvent"
+    },
+    "propertyName": "type"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/TurnEvent"
+    },
+    {
+      "$ref": "#/$defs/RouteEvent"
+    },
+    {
+      "$ref": "#/$defs/ProgressEvent"
+    },
+    {
+      "$ref": "#/$defs/DeltaEvent"
+    },
+    {
+      "$ref": "#/$defs/ReferencesEvent"
+    },
+    {
+      "$ref": "#/$defs/ChannelDoneEvent"
+    },
+    {
+      "$ref": "#/$defs/HitlEvent"
+    },
+    {
+      "$ref": "#/$defs/ErrorEvent"
+    },
+    {
+      "$ref": "#/$defs/DoneEvent"
+    }
+  ],
+  "title": "StreamEvent"
+}
