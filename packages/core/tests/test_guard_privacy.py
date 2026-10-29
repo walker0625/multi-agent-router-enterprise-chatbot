@@ -42,9 +42,9 @@ def test_user_instructions_boundary_is_unpredictable() -> None:
 
 
 def test_redact_masks_phone_and_email() -> None:
-    text = "연락처 010-1234-5678, 02)555-1234, mail kim@example.com"
+    text = "연락처 010-0000-5678, 02)555-0000, mail kim@example.com"
     out = redact(text)
-    assert "1234-5678" not in out and "555-1234" not in out and "@" not in out
+    assert "0000-5678" not in out and "555-0000" not in out and "@" not in out
     assert out.count("[전화번호]") == 2
 
 

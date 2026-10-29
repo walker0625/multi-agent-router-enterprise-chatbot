@@ -10,7 +10,7 @@
 
 from __future__ import annotations
 
-from collections.abc import AsyncIterator, Sequence
+from collections.abc import AsyncGenerator, Sequence
 from typing import Any, Protocol
 
 from chatcore.deadline import Deadline
@@ -39,7 +39,7 @@ class ChatModel(Protocol):
         task: str,
         deadline: Deadline,
         max_tokens: int | None = None,
-    ) -> AsyncIterator[StreamChunk]: ...
+    ) -> AsyncGenerator[StreamChunk]: ...
 
 
 class Embedder(Protocol):

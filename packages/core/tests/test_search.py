@@ -43,6 +43,6 @@ async def test_no_signal_returns_empty() -> None:
 async def test_lexical_reranker_scores_in_input_order() -> None:
     index = await _index()
     docs = await index.get(["d2", "d1"])
-    scores = await LexicalReranker().rerank("물류 일정 지연", docs, deadline=Deadline(5))
+    scores = (await LexicalReranker().rerank("물류 일정 지연", docs, deadline=Deadline(5))).scores
     assert scores[1] > scores[0]
     assert all(0 <= s <= 1 for s in scores)

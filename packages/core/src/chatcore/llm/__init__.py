@@ -1,5 +1,5 @@
 from chatcore.llm.factory import LLMSettings, build_llm
-from chatcore.llm.fake import FakeChatModel, FakeReply, FakeRequest, HashingEmbedder
+from chatcore.llm.fake import FakeChatModel, FakeHandler, FakeReply, FakeRequest, HashingEmbedder
 from chatcore.llm.ports import ChatModel, Embedder
 from chatcore.llm.types import (
     Completion,
@@ -18,6 +18,7 @@ __all__ = [
     "Completion",
     "Embedder",
     "FakeChatModel",
+    "FakeHandler",
     "FakeReply",
     "FakeRequest",
     "HashingEmbedder",

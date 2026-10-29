@@ -6,7 +6,7 @@
 
 from __future__ import annotations
 
-from collections.abc import AsyncIterator, Sequence
+from collections.abc import AsyncGenerator, Sequence
 from typing import Any
 
 import openai
@@ -107,7 +107,7 @@ class OpenAIChatModel:
         task: str,
         deadline: Deadline,
         max_tokens: int | None = None,
-    ) -> AsyncIterator[StreamChunk]:
+    ) -> AsyncGenerator[StreamChunk]:
         kwargs: dict[str, Any] = {}
         if max_tokens is not None:
             kwargs["max_completion_tokens"] = max_tokens

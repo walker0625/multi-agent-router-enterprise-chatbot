@@ -12,7 +12,7 @@ import asyncio
 import hashlib
 import math
 import re
-from collections.abc import AsyncIterator, Callable, Mapping, Sequence
+from collections.abc import AsyncGenerator, Callable, Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -122,7 +122,7 @@ class FakeChatModel:
         task: str,
         deadline: Deadline,
         max_tokens: int | None = None,
-    ) -> AsyncIterator[StreamChunk]:
+    ) -> AsyncGenerator[StreamChunk]:
         deadline.check()
         req = FakeRequest(task, list(messages), max_tokens=max_tokens)
         reply = self._reply(req)

@@ -1,5 +1,5 @@
 from chatcore.search.index import Document, Hit, InMemoryIndex, SearchIndex, embed_documents, tokenize
-from chatcore.search.rerank import LexicalReranker, LLMReranker, Reranker
+from chatcore.search.rerank import LexicalReranker, LLMReranker, Reranked, Reranker
 
 __all__ = [
     "Document",
@@ -7,6 +7,7 @@ __all__ = [
     "InMemoryIndex",
     "LLMReranker",
     "LexicalReranker",
+    "Reranked",
     "Reranker",
     "SearchIndex",
     "embed_documents",
